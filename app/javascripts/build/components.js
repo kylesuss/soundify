@@ -101,7 +101,7 @@ var Controls = React.createClass({
 
 });;
 /////////////////////
-/// Album art
+/// Now Playing
 /////////////////////
 
 var NowPlaying = React.createClass({

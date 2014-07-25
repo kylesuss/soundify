@@ -1,6 +1,6 @@
 
 /////////////////////
-/// Album art
+/// Now Playing
 /////////////////////
 
 var NowPlaying = React.createClass({
