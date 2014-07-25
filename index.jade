@@ -1,0 +1,20 @@
+doctype
+html
+  head
+    include app/views/head
+    title Soundify
+  body
+    #row
+      .large-12.columns.no-gutter
+
+        #app
+          #loader
+            #loading-animation.vertical-center
+              img(src='app/images/logo-white.png')
+              span Soundify
+              .spinner
+                .circle1
+                .circle2
+        audio#current-track
+        
+    include app/views/scripts

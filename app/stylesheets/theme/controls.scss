@@ -1,0 +1,105 @@
+#controls {
+  height: 3rem;
+  background: #222;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #2f2f2f;
+}
+#play-state {
+  float: left;
+  margin-top: .4rem;
+  position: relative;
+  z-index: 99;
+  .fa {
+    width: 2.2rem;
+    line-height: 2.2rem;
+    line-height: 2.2rem;
+    text-align: center;
+  }
+  .fa-step-backward,
+  .fa-step-forward {
+    font-size: .9rem;
+  }
+  .fa-play,
+  .fa-pause {
+    font-size: 1rem;
+    border-top-width: 0;
+    border-color: rgba(255,102,0,.75) rgba(255,51,0,.25) rgba(255,17,0,.25);
+    background-color: #f50;
+    border-radius: 50%;
+    background-image: -webkit-linear-gradient(rgba(255,153,0,.6),rgba(255,102,0,.6) 40%,rgba(255,17,0,.6));
+    background-image: linear-gradient(rgba(255,153,0,.6),rgba(255,102,0,.6) 40%,rgba(255,17,0,.6));
+    box-shadow: 0 0 2px rgba(255,51,0,.35),inset 0 -1px 3px rgba(255,51,0,.45),0 0 3px rgba(0,0,0,.15),inset 0 1px 0 rgba(102,51,0,.2),inset 0 2px 2px rgba(255,255,255,.25),inset 0 -2px 2px rgba(255,255,255,.2);
+    text-shadow: none;
+  }
+  .fa-play {
+    &:before {
+      margin-left: 3px;
+    }
+  }
+}
+#waveform {
+  position: absolute;
+  height: 28px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 300px;
+}
+#waveform-line {
+  position: absolute;
+  top: 0;
+  height: 48px;
+}
+
+//
+.demo .dragdealer {
+  background: #e1e1e1;
+  height: 40px;
+  border-radius: 3px;
+}
+  .demo .dragdealer .red-bar {
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+    border-radius: 3px;
+    background: red;
+    width: 50px;
+  }
+
+/* Just a slider */
+
+#volume-slider {
+  position: absolute;
+  width: 175px;
+  left: 110px;
+  height: 3rem;
+  z-index: 99;
+}
+#volume-slider .handle {
+  height: 14px;
+  width: 14px;
+  margin-top: 17px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  z-index: 99;
+}
+#volume-slider .value {
+  padding: 0 0 0 5px;
+  font-size: 30px;
+  font-weight: bold;
+}
+#volume-track {
+  width: 100%;
+  background: #1a1a1a;
+  position: absolute;
+  height: 6px;
+  top: 21px;
+  z-index: 1;
+  border-radius: 3px;
+}

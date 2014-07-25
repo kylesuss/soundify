@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="app/stylesheets/style.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <title>Soundify</title>
+  </head>
+  <body>
+    <div id="row">
+      <div class="large-12 columns no-gutter">
+        <div id="app">
+          <div id="loader">
+            <div id="loading-animation" class="vertical-center"><img src="app/images/logo-white.png"><span>Soundify</span>
+              <div class="spinner">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <audio id="current-track"></audio>
+      </div>
+    </div>
+    <!-- External-->
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <!-- Internal-->
+    <script src="app/javascripts/config.js"></script>
+    <script src="app/javascripts/helpers/cookies.js"></script>
+    <script src="app/javascripts/helpers/artworkUrl.js"></script>
+    <script src="app/javascripts/helpers/formatNumber.js"></script>
+    <script src="app/javascripts/libraries/react.js"></script>
+    <script src="app/javascripts/libraries/backbone.js"></script>
+    <script src="app/javascripts/libraries/backbonePouch.js"></script>
+    <script src="app/javascripts/libraries/traceurRuntime.js"></script>
+    <script src="app/javascripts/libraries/waveform.js"></script>
+    <script src="app/javascripts/libraries/dragDealer.js"></script>
+    <script src="app/javascripts/build/classes.js"></script>
+    <script src="app/javascripts/build/models.js"></script>
+    <script src="app/javascripts/build/collections.js"></script>
+    <script src="app/javascripts/build/components.js"></script>
+    <script src="app/javascripts/build/views.js"></script>
+  </body>
+</html>

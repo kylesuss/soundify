@@ -1,0 +1,22 @@
+#user-blurb-wrap {
+  width: 200px;
+  float: right;
+}
+#user-blurb-avatar {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+#user-blurb-content {
+  padding: 1rem;
+}
+#user-blurb-name {
+  margin: 0;
+  color: #aaa;
+  line-height: 2rem;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
