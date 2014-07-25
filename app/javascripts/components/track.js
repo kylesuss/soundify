@@ -26,7 +26,7 @@ var Track = React.createClass({
           this.props.data.title
         ),
         React.DOM.h4({className: 'track-time large-1 columns'},
-          this.formattedTime(this.props.data.duration)
+          formatTime(this.props.data.duration)
         )
       )
     );
@@ -54,16 +54,6 @@ var Track = React.createClass({
       UserBlurb({data: this.props.data}),
       document.getElementById('user-blurb-wrap')
     )
-  },
-
-  formattedTime: function(milli) {
-    var milliseconds = milli % 1000,
-        seconds = Math.floor((milli / 1000) % 60),
-        minutes = Math.floor((milli / (60 * 1000)) % 60);
-
-    if (seconds < 10) { seconds = '0' + seconds; }
-
-    return minutes + ":" + seconds;
   }
 
 });
