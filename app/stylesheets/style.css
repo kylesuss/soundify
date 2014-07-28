@@ -3436,6 +3436,18 @@ Structure
   overflow-y: scroll;
 }
 
+/***********************
+Powered by SC
+***********************/
+#powered-by-sc {
+  width: 104px;
+  height: 32px;
+  background: url("../images/powered-by-soundcloud.png");
+  position: fixed;
+  bottom: 3.7rem;
+  right: .5rem;
+}
+
 #loader {
   position: fixed;
   top: 0;
@@ -3808,42 +3820,65 @@ Structure
   margin-bottom: .1rem;
   position: relative;
   overflow-x: hidden;
+  border-bottom: 1px solid #2c2c2c;
+  min-height: 70px;
 }
-#comments p {
-  text-transform: uppercase;
+#comments .comment:last-child {
+  border-bottom: none;
+}
+#comments .comment-body {
   font-size: .8rem;
-  background: #1c1c1c;
-  padding: .8rem;
+  padding: 0rem .9rem .9rem 1.3rem;
   text-overflow: ellipsis;
   border-radius: 3px;
-  color: #ccc;
+  color: #aaa;
   margin-bottom: 0;
   clear: both;
   position: relative;
   line-height: 1.3rem;
+  letter-spacing: .03rem;
+  margin-left: 30px;
 }
-#comments p:after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-right: 5px solid #1c1c1c;
-  border-top: 5px solid #1c1c1c;
-  border-bottom: 5px solid transparent;
-  border-left: 5px solid transparent;
-  right: 0;
-  bottom: -10px;
-  z-index: 99;
+#comments .comment-username {
+  font-size: .8rem;
+  text-overflow: ellipsis;
+  border-radius: 3px;
+  color: #888;
+  float: left;
+  position: relative;
+  letter-spacing: .03rem;
+  padding: .2rem .9rem .3rem 1.3rem;
+  margin-left: 30px;
+  margin-bottom: 0;
+  max-width: 55%;
+}
+#comments .comment-timestamp {
+  font-size: .8rem;
+  text-overflow: ellipsis;
+  border-radius: 3px;
+  color: #888;
+  float: right;
+  position: relative;
+  letter-spacing: .03rem;
+  padding: .2rem .9rem .3rem 1.3rem;
+  margin-bottom: 0;
+  max-width: 45%;
+}
+#comments .comment-timestamp .fa-clock-o {
+  margin-right: .3rem;
+  color: #333;
 }
 #comments img {
-  float: right;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: .85rem;
 }
 
 #user-blurb-wrap {
   width: 200px;
   float: right;
+  padding-bottom: 3rem;
 }
 
 #user-blurb-avatar {

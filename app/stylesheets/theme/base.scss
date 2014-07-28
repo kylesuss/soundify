@@ -57,3 +57,16 @@ Structure
   top: 0;
   overflow-y: scroll;
 }
+
+/***********************
+Powered by SC
+***********************/
+
+#powered-by-sc {
+  width: 104px;
+  height: 32px;
+  background: url("../images/powered-by-soundcloud.png");
+  position: fixed;
+  bottom: 3.7rem;
+  right: .5rem;
+}

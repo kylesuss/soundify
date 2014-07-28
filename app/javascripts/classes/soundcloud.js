@@ -40,6 +40,9 @@ class SoundCloud {
 
     this.volumeSlider = new Dragdealer('volume-slider', {
       x: volume,
+      requestAnimationFrame: true,
+      steps: 100,
+      snap: true,
       animationCallback: _.bind(function(x, y) {
         this.currentTrack && this.setVolume(x);
       }, this)
