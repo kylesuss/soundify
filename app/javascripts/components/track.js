@@ -33,16 +33,16 @@ var Track = React.createClass({
   },
 
   playTrack: function() {
-    var sc = App.SoundCloud;
+    var controller = App.AudioController;
     // Remove the playing state of the old track if it exists
-    sc.currentTrackComponent && sc.currentTrackComponent.setState({status: 'stopped'});
+    controller.currentTrackComponent && controller.currentTrackComponent.setState({status: 'stopped'});
 
     // Play the new song, adjust its state, and cache it
-    sc.playTrack(this.props.data);
-    sc.currentTrackComponent = this;
+    controller.playTrack(this.props.data);
+    controller.currentTrackComponent = this;
     this.setState({status: 'playing'});
 
-    sc.fetchComments(this.props.data.id);
+    App.SoundCloud.fetchComments(this.props.data.id);
 
     // Update the controls
     React.renderComponent(

@@ -9,7 +9,10 @@ var NowPlaying = React.createClass({
 
   render: function() {
     if (this.props.data) {
-      var artworkStyle = { backgroundImage: 'url(' + artworkUrl(this.props.data.artwork_url) + ')' };
+      
+      var trackArtwork = artworkUrl(this.props.data.artwork_url) || artworkUrl(this.props.data.user.avatar_url),
+          artworkStyle = { backgroundImage: 'url(' + trackArtwork + ')' };
+
       return (
         React.DOM.div({id: 'now-playing'},
           React.DOM.div({id: 'artwork', style: artworkStyle}),

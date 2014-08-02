@@ -1,5 +1,6 @@
 # Soundify
-------------
+
+![Soundify Screenshot](http://i.imgur.com/xAcJNa8.png)
 
 A client side SoundCloud player that focuses on the concept of a 'libary', similar to the way that Spotify works. Get it: SoundCloud + Spotify = Soundify.
 

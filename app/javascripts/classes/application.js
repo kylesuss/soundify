@@ -6,8 +6,15 @@
 class Application {
 
   constructor() {
-    this.startSoundCloud();
     this.setStructure();
+    this.startSoundCloud();
+    this.watchKeyboardShortcuts();
+  }
+
+  setStructure() {
+    this.Views = {};
+    this.Collections = {};
+    this.Models = {};
   }
 
   startSoundCloud() {
@@ -20,14 +27,16 @@ class Application {
   }
 
   getInitialCollection() {
-    this.favorites  = new FavoritesCollection({userId: this.SoundCloud.userId});
+    this.Collections.FavoritesCollection  = new FavoritesCollection([], {userId: this.SoundCloud.userId});
 
-    this.favorites.fetch({
-      success: _.bind(function(collection) {
-        this.SoundCloud.favorites = collection;
+    this.Collections.FavoritesCollection.fetch({
+
+      success: _.bind(function() {
         this.startBackbone();
-        this.SoundCloud.setupVolume();
+        // Need elements to be created for volume to start
+        this.startAudio();
       }, this)
+
     });
   }
 
@@ -36,8 +45,12 @@ class Application {
     Backbone.history.start();
   }
 
-  setStructure() {
-    this.Views = {};
+  startAudio() {
+    this.AudioController = new AudioController();
+  }
+
+  watchKeyboardShortcuts() {
+    new KeyboardShortcuts();
   }
 
 }

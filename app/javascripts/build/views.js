@@ -55,7 +55,7 @@ var $PlayerView = PlayerView;
     this.render();
     App.Views.TopbarView = new TopbarView();
     App.Views.SidebarView = new SidebarView();
-    App.Views.TracksView = new TracksView();
+    App.Views.TracksView = new TracksView({collection: App.Collections.FavoritesCollection});
     App.Views.UserBlurbView = new UserBlurbView();
     App.Views.ControlsView = new ControlsView();
   },
@@ -108,9 +108,11 @@ var $TracksView = TracksView;
   initialize: function() {
     this.el = 'tracks';
     this.render();
+    this.listenTo(this.collection, 'reset', this.render);
   },
   render: function() {
-    React.renderComponent(Tracks({}), document.getElementById('tracks-wrap'));
+    var data = this.collection.toJSON() || [];
+    React.renderComponent(Tracks(data.length ? {data: data} : {}), document.getElementById('tracks-wrap'));
     return this;
   }
 }, {}, Backbone.View);

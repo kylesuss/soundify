@@ -13,9 +13,9 @@ var Controls = React.createClass({
     return (
       React.DOM.div({id: 'controls'},
         React.DOM.div({id: 'play-state'},
-          React.DOM.i({className: 'fa fa-step-backward'}),
+          React.DOM.i({className: 'fa fa-step-backward', onClick: this.previousTrack}),
           React.DOM.i({className: 'fa fa-' + state, onClick: this.togglePlayState}),
-          React.DOM.i({className: 'fa fa-step-forward'})
+          React.DOM.i({className: 'fa fa-step-forward', onClick: this.nextTrack})
         ),
         React.DOM.div({id: 'volume-slider', className: 'dragdealer'},
           React.DOM.div({className: 'handle red-bar'}),
@@ -28,7 +28,7 @@ var Controls = React.createClass({
 
   togglePlayState: function() {
     if (this.props.nextAction === 'pause') {
-      App.SoundCloud.currentTrack.pause();
+      App.AudioController.pauseCurrentTrack();
       // Cleaner way to do this?
       React.renderComponent(
         Controls({nextAction: 'play'}),
@@ -36,12 +36,20 @@ var Controls = React.createClass({
       )
     } else {
       // Cleaner way to do this?
-      App.SoundCloud.currentTrack.play();
+      App.AudioController.playCurrentTrack();
       React.renderComponent(
         Controls({nextAction: 'pause'}),
         document.getElementById('controls-wrap')
       )
     }
+  },
+
+  previousTrack: function() {
+    App.AudioController.playPreviousTrack();
+  },
+
+  nextTrack: function() {
+    App.AudioController.playNextTrack();
   }
 
 });

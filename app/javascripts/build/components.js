@@ -73,9 +73,9 @@ var Controls = React.createClass({
     return (
       React.DOM.div({id: 'controls'},
         React.DOM.div({id: 'play-state'},
-          React.DOM.i({className: 'fa fa-step-backward'}),
+          React.DOM.i({className: 'fa fa-step-backward', onClick: this.previousTrack}),
           React.DOM.i({className: 'fa fa-' + state, onClick: this.togglePlayState}),
-          React.DOM.i({className: 'fa fa-step-forward'})
+          React.DOM.i({className: 'fa fa-step-forward', onClick: this.nextTrack})
         ),
         React.DOM.div({id: 'volume-slider', className: 'dragdealer'},
           React.DOM.div({className: 'handle red-bar'}),
@@ -88,7 +88,7 @@ var Controls = React.createClass({
 
   togglePlayState: function() {
     if (this.props.nextAction === 'pause') {
-      App.SoundCloud.currentTrack.pause();
+      App.AudioController.pauseCurrentTrack();
       // Cleaner way to do this?
       React.renderComponent(
         Controls({nextAction: 'play'}),
@@ -96,12 +96,20 @@ var Controls = React.createClass({
       )
     } else {
       // Cleaner way to do this?
-      App.SoundCloud.currentTrack.play();
+      App.AudioController.playCurrentTrack();
       React.renderComponent(
         Controls({nextAction: 'pause'}),
         document.getElementById('controls-wrap')
       )
     }
+  },
+
+  previousTrack: function() {
+    App.AudioController.playPreviousTrack();
+  },
+
+  nextTrack: function() {
+    App.AudioController.playNextTrack();
   }
 
 });;
@@ -115,7 +123,10 @@ var NowPlaying = React.createClass({
 
   render: function() {
     if (this.props.data) {
-      var artworkStyle = { backgroundImage: 'url(' + artworkUrl(this.props.data.artwork_url) + ')' };
+      
+      var trackArtwork = artworkUrl(this.props.data.artwork_url) || artworkUrl(this.props.data.user.avatar_url),
+          artworkStyle = { backgroundImage: 'url(' + trackArtwork + ')' };
+
       return (
         React.DOM.div({id: 'now-playing'},
           React.DOM.div({id: 'artwork', style: artworkStyle}),
@@ -270,16 +281,16 @@ var Track = React.createClass({
   },
 
   playTrack: function() {
-    var sc = App.SoundCloud;
+    var controller = App.AudioController;
     // Remove the playing state of the old track if it exists
-    sc.currentTrackComponent && sc.currentTrackComponent.setState({status: 'stopped'});
+    controller.currentTrackComponent && controller.currentTrackComponent.setState({status: 'stopped'});
 
     // Play the new song, adjust its state, and cache it
-    sc.playTrack(this.props.data);
-    sc.currentTrackComponent = this;
+    controller.playTrack(this.props.data);
+    controller.currentTrackComponent = this;
     this.setState({status: 'playing'});
 
-    sc.fetchComments(this.props.data.id);
+    App.SoundCloud.fetchComments(this.props.data.id);
 
     // Update the controls
     React.renderComponent(

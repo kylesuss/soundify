@@ -1,10 +1,8 @@
 function artworkUrl(oldUrl) {
-  var newUrl;
+  var newUrl = '';
 
   if (oldUrl) {
     newUrl = oldUrl.replace('large', 'crop');
-  } else {
-    newUrl = '';
   }
 
   return newUrl;

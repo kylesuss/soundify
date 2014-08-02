@@ -8,8 +8,6 @@ class SoundCloud {
   constructor() {
     this.clientId = Config.clientId;
     this.initialize();
-    this.favorites = [];
-    this.setupAudio();
   }
 
   /////////////////////
@@ -20,32 +18,6 @@ class SoundCloud {
     SC.initialize({
       client_id: this.clientId,
       redirect_uri: Config.redirectUri
-    });
-  }
-
-  setupAudio() {
-    // Not using React for this
-    this.audioElement = document.getElementById('current-track');
-    this.audioElement.addEventListener('timeupdate', _.throttle(function() {
-      App.SoundCloud.getWaveform().redraw();
-    }, 350), false);
-    this.audioContext = new webkitAudioContext();
-    this.audioSource  = this.audioContext.createMediaElementSource(this.audioElement);
-    this.audioSource.connect(this.audioContext.destination);
-  }
-
-  setupVolume() {
-    var volume = readCookie('volume') || 1;
-    document.cookie = `volume=${volume}`
-
-    this.volumeSlider = new Dragdealer('volume-slider', {
-      x: volume,
-      requestAnimationFrame: true,
-      steps: 100,
-      snap: true,
-      animationCallback: _.bind(function(x, y) {
-        this.currentTrack && this.setVolume(x);
-      }, this)
     });
   }
 
@@ -87,50 +59,6 @@ class SoundCloud {
   }
 
   /////////////////////
-  /// Streaming
-  /////////////////////
-
-  setVolume(number) {
-    number = number || readCookie('volume');
-
-    // number = parseFloat(number);
-    number = Math.round(number * 100);
-    if (number < 5) { number = 0; }
-    this.currentTrack.volume = number / 100;
-    document.cookie = `volume=${number / 100}`
-  }
-
-  playTrack(track) {
-    var url = `${track.stream_url}?client_id=${this.clientId}`;
-    
-    // Handle the current song
-    this.currentTrack && this.pauseCurrentTrack() && this.clearCurrentTrack();
-
-    // Template the now playing view
-    App.Views.NowPlayingView.render(track);
-
-    // Change the source of the audio element and play the new track
-    this.audioElement.src = url;
-    this.currentTrack = this.audioSource.mediaElement;
-    this.setVolume();
-    this.currentTrack.play();
-    this.getWaveform().dataFromSoundCloudTrack(track);
-  }
-
-  clearCurrentTrack() {
-    this.audioElement.currentTime = 0;
-    this.audioElement.duration = 1;
-  }
-
-  pauseCurrentTrack() {
-    this.currentTrack.pause();
-  }
-
-  playCurrentTrack() {
-    this.currentTrack.play();
-  }
-
-  /////////////////////
   /// Comments
   /////////////////////
 
@@ -168,9 +96,9 @@ class SoundCloud {
       container: container,
       width: width,
       innerColor: _.bind(function(percentageOfWaveform, d) {
-        var songPercentage = this.audioElement.currentTime / this.audioElement.duration;
+        var songPercentage = App.AudioController.audioElement.currentTime / App.AudioController.audioElement.duration;
 
-        if (percentageOfWaveform > songPercentage || isNaN(percentageOfWaveform) === true || isNaN(this.audioElement.duration) || typeof(percentageOfWaveform) === 'undefined') {
+        if (percentageOfWaveform > songPercentage || isNaN(percentageOfWaveform) === true || isNaN(App.AudioController.audioElement.duration) || typeof(percentageOfWaveform) === 'undefined') {
           // If this portion of the track hasn't played yet
           return '#444';
         } else {
@@ -183,6 +111,7 @@ class SoundCloud {
     this.waveformCanvas = document.querySelectorAll('#waveform canvas')[0];
   }
 
+  // Changing the default of a solid color as the fill layer
   createGradient() {
     var waveformContext = this.waveform.context,
         gradient = waveformContext.createLinearGradient(0, 0, 0, this.waveform.height);
@@ -197,9 +126,9 @@ class SoundCloud {
     this.waveformCanvas.addEventListener('click', _.bind(function(event) {
       var mousePos = this.getMousePosition(this.waveformCanvas, event),
           percentage = mousePos.x / mousePos.width,
-          seekTo = this.audioElement.duration * percentage;
+          seekTo = App.AudioController.audioElement.duration * percentage;
 
-      this.audioElement.currentTime = seekTo;
+      App.AudioController.audioElement.currentTime = seekTo;
     }, this), false);
   }
 

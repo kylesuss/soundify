@@ -1,6 +1,7 @@
 class FavoritesCollection extends Backbone.Collection {
   
-  constructor(options) {
+  constructor(models, options) {
+    super(models, options);
     this.model  = TrackModel;
     this.userId = options.userId;
   }
@@ -9,7 +10,7 @@ class FavoritesCollection extends Backbone.Collection {
     return {
       path: `/users/${this.userId}/favorites`,
       params: { 
-        limit: 200, 
+        limit: 200,
         offset: 0 
       }
     }
@@ -18,32 +19,23 @@ class FavoritesCollection extends Backbone.Collection {
   fetch(options) {
     var request = options.request || this.defaultParams(),
         params  = request.params,
-        success = options.success,
-        collection = options.collection || [];
+        success = options.success;
 
     SC.get(request.path, {'limit': params.limit, 'offset': params.offset },
-      _.bind(function(data){
-        collection = collection.concat(data);
+      _.bind(function(data) {
+        this.add(data, _.extend({silent: true}, options));
         if (data.length === 0) {
-          success(collection);
-          return this.parse(collection);
+          this.reset(this.models, options);
+          success();
         } else {
           params.offset += data.length;
           this.fetch({
-            request:    request, 
-            collection: collection, 
-            success:    success
+            request: request, 
+            success: success
           });
         }
       }, this)
     );
-  }
-
-  parse(collection) {
-    React.renderComponent(
-      Tracks({data: collection}),
-      document.getElementById('tracks-wrap')
-    )
   }
 
 }
