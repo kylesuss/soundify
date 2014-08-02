@@ -4,6 +4,8 @@
 
 A client side SoundCloud player that focuses on the concept of a 'libary', similar to the way that Spotify works. Get it: SoundCloud + Spotify = Soundify.
 
+**This app is currently in an 'alpha' state. You can currently connect your SoundCloud account, retrieve your full list of favorites, and play songs. You may encouunter some bugs along the way.**
+
 The app makes heavy use of the following:
 
 1. Grunt
